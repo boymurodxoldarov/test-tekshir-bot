@@ -1,0 +1,21 @@
+services:
+  - type: worker
+    name: telegram-test-bot
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot.py
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: ADMIN_ID
+        sync: false
+      - key: DATABASE_URL
+        value: /data/test_bot.db
+      - key: RATE_LIMIT_ATTEMPTS
+        value: "5"
+      - key: RATE_LIMIT_WINDOW
+        value: "60"
+    disk:
+      name: bot-data
+      mountPath: /data
+      sizeGB: 1
